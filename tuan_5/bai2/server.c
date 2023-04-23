@@ -16,7 +16,7 @@ int main() {
     int count = 0;
 
     // Tạo socket
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == 0) {
         perror("Không thể tạo socket");
         exit(EXIT_FAILURE);
     }
