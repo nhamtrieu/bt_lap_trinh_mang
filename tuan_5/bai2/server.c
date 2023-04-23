@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define PORT 9000
+#define PORT 8080
 #define MAX_BUFFER_SIZE 1024
 
 int main() {
@@ -33,7 +33,7 @@ int main() {
     }
 
     // Lắng nghe kết nối từ client
-    if (listen(server_fd, 5) < 0) {
+    if (listen(server_fd, 3) < 0) {
         perror("Không thể lắng nghe kết nối");
         exit(EXIT_FAILURE);
     }
@@ -47,16 +47,22 @@ int main() {
     }
 
     // Nhận dữ liệu từ client
-    valread = recv(new_socket, buffer, MAX_BUFFER_SIZE, 0);
+    int total_bytes_received = 0;
+    while (total_bytes_received < MAX_BUFFER_SIZE) {
+        int bytes_received = recv(new_socket, buffer + total_bytes_received, MAX_BUFFER_SIZE - total_bytes_received, 0);
+        if (bytes_received <= 0) {
+            break;
+        }
+        total_bytes_received += bytes_received;
+    }
 
-    // Đếm số lần xuất hiện của xâu "0123456789"
+    // Xử lý dữ liệu
+    printf("Đã nhận được %d byte dữ liệu từ client\n", total_bytes_received);
     char *p = buffer;
     while ((p = strstr(p, "0123456789")) != NULL) {
         count++;
         p += strlen("0123456789");
     }
-
-    // In ra màn hình số lần xuất hiện
     printf("Số lần xuất hiện của xâu '0123456789' là: %d\n", count);
 
     return 0;
