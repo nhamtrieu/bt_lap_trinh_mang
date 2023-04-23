@@ -42,8 +42,6 @@ int main()
         perror("accept() failed");
         return 1;
     }
-    printf("New client connected: %d\n", client);
-
     // Truyen nhan du lieu
     char buf[256];
     int ret = recv(client, buf, sizeof(buf), 0);
