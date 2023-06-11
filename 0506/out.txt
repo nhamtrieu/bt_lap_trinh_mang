@@ -1,10 +1,11 @@
+.
+..
 chat_server
 chat_server.c
-nham
 http_server.c
+img
 out.txt
 telnet_server
 telnet_server.c
-time_server
 time_server.c
 user_login.txt

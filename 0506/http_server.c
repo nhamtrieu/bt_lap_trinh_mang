@@ -7,8 +7,6 @@
 #include <string.h>
 #include <pthread.h>
 
-
-
 void * handle_client(void * arg){
     char buf[256];
     int sockfd = *(int *)arg;
